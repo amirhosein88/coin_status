@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
@@ -13,7 +15,7 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
       home: HomeView(),
     );
@@ -33,81 +35,90 @@ class HomeView extends StatelessWidget {
       backgroundColor: Colors.white,
       appBar: AppBar(
         
-        backgroundColor: Colors.lightGreenAccent,
-        elevation: 5,
-        title: Row(
+        backgroundColor: Colors.amber.shade500 ,
+        elevation: double.infinity,
+        title: const Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.baseline,
+          crossAxisAlignment: CrossAxisAlignment.center,
           textBaseline: TextBaseline.alphabetic,
 
+
           children: [
-            SafeArea(child: SizedBox(height: 20), ),
-            Text('Crypto' , style: TextStyle( fontSize: 40),),
-            SizedBox(width: 10,),
-            Text('Currency' , style: TextStyle(fontSize: 40),),
+            SafeArea(child: SizedBox(height: double.minPositive , width: double.minPositive,), ),
+            Text('Crypto' , style: TextStyle( fontSize: 25 , fontWeight: FontWeight.w900),),
+            SizedBox(width:double.minPositive , height: double.minPositive,),
+            Text('Status' , style: TextStyle(fontSize: 25, fontWeight: FontWeight.w900),),
+            SizedBox(width:double.minPositive , height: double.minPositive,),
+            Icon(CryptoFontIcons.BTC_ALT , size: 30,)
           ],
         ),
       ),
         body: Column(
           children: [
+            const SizedBox(
+              height: 10,
+            ),
             SizedBox(
-              height: 250,
-              width: 400,
+              height:220,
+              width: 420,
               child: Card(
                 elevation: 10,
-                color: Colors.white60,
+                color: Colors.black,
 
                 child: Column(
                     children: [
                       Icon(
                         CryptoFontIcons.BTC,
-                        color: Colors.amber,
-                        size: 60,
+                        color: Colors.grey.shade200,
+                        size: 30,
                       ),
                       Text(
-                        'BTC',
+                        title,
                       style: TextStyle(
-                        fontSize: 50,
-                        color: Colors.amber
+                        fontSize: 35,
+                        color: Colors.grey.shade200
                       ),
                       ),
-                      Row(
+                      const SizedBox(height: 5,),
+                      const Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Column(
-                            children: [
-                              Text(
-                                  'Lowest in day',
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight:FontWeight.w900,
-                                  color: Colors.pink
-                                ),
-                              ),
-                              SizedBox(height: 4,
-
-                              ),
-                              Text('20000',
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w900,
-                                  color: Colors.black
-                                ),
-                              ),
-                              Row(
-                                children: [
-                                  CustomCryptoColumn(
-                                    title: "highest in day",
-                                    price: 22000,
+                          Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Column(
+                              children: [
+                                Text(
+                                    'Lowest in day',
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight:FontWeight.w900,
+                                    color: Colors.red
                                   ),
-                                  CustomCryptoColumn(
-                                    title: "avg in day",
-                                    price: 21000,
-                                  ),
-                                  CustomCryptoColumn(
-                                    title: 'lowest in day',price: 20000)
-                                ],
-                              )
-                            ],
+                                ),
+                                //SizedBox(height:5 ,),
+                                // Text('20000',
+                                //   style: TextStyle(
+                                //     fontSize: 20,
+                                //     fontWeight: FontWeight.w900,
+                                //     color: Colors.green
+                                //   ),
+                                // ),
+                                Row(
+                                  children: [
+                                    CustomCryptoColumn(
+                                      title: "highest in day",
+                                      price: ,
+                                    ),
+                                    CustomCryptoColumn(
+                                      title: "avg in day",
+                                      price: 21000,
+                                    ),
+                                    CustomCryptoColumn(
+                                      title: 'lowest in day',price: 20000)
+                                  ],
+                                )
+                              ],
+                            ),
                           )
                         ],
                       )
@@ -122,12 +133,20 @@ class HomeView extends StatelessWidget {
   }
 }
 class CustomCryptoColumn extends StatelessWidget {
+  final IconData icon;
   final String title;
   final double price;
+  final double highday;
+  final double lowday;
+
   const CustomCryptoColumn(
       {super.key,
         required this.price,
         required this.title,
+        required this.highday,
+        required this.lowday,
+        required this.icon,
+
       }
       );
 
